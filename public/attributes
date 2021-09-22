@@ -21,6 +21,12 @@ attribute fs_type;
 # All types used for context= mounts.
 attribute contextmount_type;
 
+# All types referencing a FUSE filesystem.
+# When mounting a new FUSE filesystem, the fscontext= option should be used to
+# set a domain-specific type with this attribute. See app_fusefs for an
+# example.
+attribute fusefs_type;
+
 # All types used for files that can exist on a labeled fs.
 # Do not use for pseudo file types.
 # On change, update CHECK_FC_ASSERT_ATTRS
@@ -399,3 +405,7 @@ expandattribute dmabuf_heap_device_type false;
 
 # All types used for DSU metadata files.
 attribute gsi_metadata_file_type;
+
+# Types used for module-specific APEX data directories under
+# /data/{misc,misc_ce,misc_de}/apexdata.
+attribute apex_data_file_type;

@@ -13,6 +13,7 @@ type proc_drop_caches, fs_type, proc_type;
 type proc_overcommit_memory, fs_type, proc_type;
 type proc_min_free_order_shift, fs_type, proc_type;
 type proc_kpageflags, fs_type, proc_type;
+type proc_watermark_boost_factor, fs_type, proc_type;
 # proc, sysfs, or other nodes that permit configuration of kernel usermodehelpers.
 type usermodehelper, fs_type, proc_type;
 type sysfs_usermodehelper, fs_type, sysfs_type;
@@ -144,7 +145,7 @@ type devpts, fs_type, mlstrustedobject;
 type tmpfs, fs_type;
 type shm, fs_type;
 type mqueue, fs_type;
-type fuse, sdcard_type, fs_type, mlstrustedobject;
+type fuse, fusefs_type, fs_type, mlstrustedobject;
 type sdcardfs, sdcard_type, fs_type, mlstrustedobject;
 type vfat, sdcard_type, fs_type, mlstrustedobject;
 type exfat, sdcard_type, fs_type, mlstrustedobject;
@@ -166,7 +167,7 @@ type functionfs, fs_type, mlstrustedobject;
 type oemfs, fs_type, contextmount_type;
 type usbfs, fs_type;
 type binfmt_miscfs, fs_type;
-type app_fusefs, fs_type, contextmount_type;
+type app_fusefs, fs_type, fusefs_type, contextmount_type;
 
 # File types
 type unlabeled, file_type;
@@ -245,6 +246,11 @@ type vendor_public_framework_file, vendor_file_type, file_type;
 type vendor_keylayout_file, vendor_file_type, file_type;
 type vendor_keychars_file, vendor_file_type, file_type;
 type vendor_idc_file, vendor_file_type, file_type;
+
+# SoC-specific virtual machine disk files
+type vendor_vm_file, vendor_file_type, file_type;
+# SoC-specific virtual machine disk files that are mutable
+type vendor_vm_data_file, vendor_file_type, file_type;
 
 # /metadata partition itself
 type metadata_file, file_type;
@@ -391,13 +397,10 @@ type mirror_data_file, file_type, core_data_file_type;
 
 # /data/misc subdirectories
 type adb_keys_file, file_type, data_file_type, core_data_file_type;
-type apex_appsearch_data_file, file_type, data_file_type, core_data_file_type;
+type apex_system_server_data_file, file_type, data_file_type, core_data_file_type, apex_data_file_type;
 type apex_module_data_file, file_type, data_file_type, core_data_file_type;
 type apex_ota_reserved_file, file_type, data_file_type, core_data_file_type;
-type apex_permission_data_file, file_type, data_file_type, core_data_file_type;
 type apex_rollback_data_file, file_type, data_file_type, core_data_file_type;
-type apex_scheduling_data_file, file_type, data_file_type, core_data_file_type;
-type apex_wifi_data_file, file_type, data_file_type, core_data_file_type;
 type appcompat_data_file, file_type, data_file_type, core_data_file_type;
 type audio_data_file, file_type, data_file_type, core_data_file_type;
 type audioserver_data_file, file_type, data_file_type, core_data_file_type;
@@ -507,6 +510,7 @@ type recovery_socket, file_type, coredomain_socket;
 type rild_socket, file_type;
 type rild_debug_socket, file_type;
 type snapuserd_socket, file_type, coredomain_socket;
+type snapuserd_proxy_socket, file_type, coredomain_socket;
 type statsdw_socket, file_type, coredomain_socket, mlstrustedobject;
 type system_wpa_socket, file_type, data_file_type, core_data_file_type, coredomain_socket;
 type system_ndebug_socket, file_type, data_file_type, core_data_file_type, coredomain_socket, mlstrustedobject;
