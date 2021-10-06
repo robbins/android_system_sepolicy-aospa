@@ -7,16 +7,23 @@
   ( new_objects
     artd_service
     camera2_extensions_prop
+    extra_free_kbytes
+    extra_free_kbytes_exec
     hal_contexthub_service
     hal_system_suspend_service
     hal_tv_tuner_service
+    hal_uwb_service
+    hal_uwb_vendor_service
     hal_wifi_hostapd_service
+    hypervisor_prop
+    locale_service
     power_stats_service
     snapuserd_prop
     snapuserd_proxy_socket
     tare_service
     transformer_service
     proc_watermark_boost_factor
+    proc_watermark_scale_factor
     untrusted_app_30
     proc_vendor_sched
     sysfs_vendor_sched

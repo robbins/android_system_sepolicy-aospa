@@ -42,6 +42,7 @@ system_internal_prop(zygote_wrap_prop)
 system_internal_prop(ctl_mediatranscoding_prop)
 system_internal_prop(ctl_odsign_prop)
 vendor_restricted_prop(vendor_medsrv_set_64b)
+system_internal_prop(virtualizationservice_prop)
 
 ###
 ### Neverallow rules
