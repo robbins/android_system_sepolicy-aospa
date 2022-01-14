@@ -183,6 +183,13 @@ filegroup {
 }
 
 filegroup {
+  name: "com.android.sepolicy-file_contexts",
+  srcs: [
+    "com.android.sepolicy-file_contexts",
+  ],
+}
+
+filegroup {
   name: "com.android.telephony-file_contexts",
   srcs: [
     "com.android.telephony-file_contexts",
@@ -242,5 +249,12 @@ filegroup {
   name: "com.android.car.framework-file_contexts",
   srcs: [
     "com.android.car.framework-file_contexts",
+  ],
+}
+
+filegroup {
+  name: "com.android.supplementalprocess-file_contexts",
+  srcs: [
+    "com.android.supplementalprocess-file_contexts",
   ],
 }

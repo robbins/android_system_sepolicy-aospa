@@ -371,6 +371,8 @@ allow init {
 
 allow init {
   proc_abi
+  proc_bpf
+  proc_cpu_alignment
   proc_dirty
   proc_hostname
   proc_hung_task

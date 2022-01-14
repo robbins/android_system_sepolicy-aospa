@@ -78,6 +78,7 @@ allow apexd apex_mnt_dir:file { create_file_perms relabelfrom mounton };
 allow apexd apex_info_file:file relabelto;
 # apexd needs to update /apex/apex-info-list.xml after non-staged APEX update.
 allow apexd apex_info_file:file rw_file_perms;
+allow apexd apex_info_file:file mounton;
 
 # allow apexd to unlink apex files in /data/apex/active
 # note that apexd won't be able to unlink files in /data/app-staging/session_XXXX,
@@ -186,3 +187,6 @@ allow apexd postinstall_apex_mnt_dir:dir { create_dir_perms mounton };
 allow apexd postinstall_apex_mnt_dir:file { create_file_perms relabelfrom };
 allow apexd postinstall_apex_mnt_dir:lnk_file create;
 allow apexd proc_filesystems:file r_file_perms;
+
+# Allow calling derive_classpath to gather BCP information for staged sessions
+domain_auto_trans(apexd, derive_classpath_exec, apexd_derive_classpath);

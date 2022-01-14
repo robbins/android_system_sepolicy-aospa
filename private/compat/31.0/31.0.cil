@@ -4,6 +4,7 @@
 (type apex_scheduling_data_file)
 (type apex_wifi_data_file)
 (type healthd_exec)
+(type nonplat_service_contexts_file)
 (type vr_hwc)
 (type vr_hwc_exec)
 
@@ -1961,7 +1962,11 @@
 (typeattributeset print_service_31_0 (print_service))
 (typeattributeset priv_app_31_0 (priv_app))
 (typeattributeset privapp_data_file_31_0 (privapp_data_file))
-(typeattributeset proc_31_0 (proc))
+(typeattributeset proc_31_0
+  ( proc
+    proc_bpf
+    proc_cpu_alignment
+))
 (typeattributeset proc_abi_31_0 (proc_abi))
 (typeattributeset proc_asound_31_0 (proc_asound))
 (typeattributeset proc_bluetooth_writable_31_0 (proc_bluetooth_writable))
@@ -1992,7 +1997,10 @@
 (typeattributeset proc_misc_31_0 (proc_misc))
 (typeattributeset proc_modules_31_0 (proc_modules))
 (typeattributeset proc_mounts_31_0 (proc_mounts))
-(typeattributeset proc_net_31_0 (proc_net))
+(typeattributeset proc_net_31_0
+  ( proc_bpf
+    proc_net
+))
 (typeattributeset proc_net_tcp_udp_31_0 (proc_net_tcp_udp))
 (typeattributeset proc_overcommit_memory_31_0 (proc_overcommit_memory))
 (typeattributeset proc_page_cluster_31_0 (proc_page_cluster))
