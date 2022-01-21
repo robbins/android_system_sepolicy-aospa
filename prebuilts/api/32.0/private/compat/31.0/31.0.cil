@@ -1,14 +1,3 @@
-;; types removed from current policy
-(type apex_appsearch_data_file)
-(type apex_permission_data_file)
-(type apex_scheduling_data_file)
-(type apex_wifi_data_file)
-(type healthd_exec)
-(type nonplat_service_contexts_file)
-(type sysfs_block)
-(type vr_hwc)
-(type vr_hwc_exec)
-
 (expandtypeattribute (DockObserver_service_31_0) true)
 (expandtypeattribute (IProxyService_service_31_0) true)
 (expandtypeattribute (aac_drc_prop_31_0) true)
@@ -1266,18 +1255,18 @@
 (typeattributeset alarm_service_31_0 (alarm_service))
 (typeattributeset anr_data_file_31_0 (anr_data_file))
 (typeattributeset apc_service_31_0 (apc_service))
-(typeattributeset apex_appsearch_data_file_31_0 (apex_appsearch_data_file apex_system_server_data_file))
+(typeattributeset apex_appsearch_data_file_31_0 (apex_appsearch_data_file))
 (typeattributeset apex_data_file_31_0 (apex_data_file))
 (typeattributeset apex_info_file_31_0 (apex_info_file))
 (typeattributeset apex_metadata_file_31_0 (apex_metadata_file))
 (typeattributeset apex_mnt_dir_31_0 (apex_mnt_dir))
 (typeattributeset apex_module_data_file_31_0 (apex_module_data_file))
 (typeattributeset apex_ota_reserved_file_31_0 (apex_ota_reserved_file))
-(typeattributeset apex_permission_data_file_31_0 (apex_permission_data_file apex_system_server_data_file))
+(typeattributeset apex_permission_data_file_31_0 (apex_permission_data_file))
 (typeattributeset apex_rollback_data_file_31_0 (apex_rollback_data_file))
-(typeattributeset apex_scheduling_data_file_31_0 (apex_scheduling_data_file apex_system_server_data_file))
+(typeattributeset apex_scheduling_data_file_31_0 (apex_scheduling_data_file))
 (typeattributeset apex_service_31_0 (apex_service))
-(typeattributeset apex_wifi_data_file_31_0 (apex_wifi_data_file apex_system_server_data_file))
+(typeattributeset apex_wifi_data_file_31_0 (apex_wifi_data_file))
 (typeattributeset apexd_31_0 (apexd))
 (typeattributeset apexd_config_prop_31_0 (apexd_config_prop))
 (typeattributeset apexd_exec_31_0 (apexd_exec))
@@ -1970,11 +1959,7 @@
 (typeattributeset print_service_31_0 (print_service))
 (typeattributeset priv_app_31_0 (priv_app))
 (typeattributeset privapp_data_file_31_0 (privapp_data_file))
-(typeattributeset proc_31_0
-  ( proc
-    proc_bpf
-    proc_cpu_alignment
-))
+(typeattributeset proc_31_0 (proc))
 (typeattributeset proc_abi_31_0 (proc_abi))
 (typeattributeset proc_asound_31_0 (proc_asound))
 (typeattributeset proc_bluetooth_writable_31_0 (proc_bluetooth_writable))
@@ -2005,10 +1990,7 @@
 (typeattributeset proc_misc_31_0 (proc_misc))
 (typeattributeset proc_modules_31_0 (proc_modules))
 (typeattributeset proc_mounts_31_0 (proc_mounts))
-(typeattributeset proc_net_31_0
-  ( proc_bpf
-    proc_net
-))
+(typeattributeset proc_net_31_0 (proc_net))
 (typeattributeset proc_net_tcp_udp_31_0 (proc_net_tcp_udp))
 (typeattributeset proc_overcommit_memory_31_0 (proc_overcommit_memory))
 (typeattributeset proc_page_cluster_31_0 (proc_page_cluster))
