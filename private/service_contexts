@@ -1,4 +1,5 @@
 android.hardware.authsecret.IAuthSecret/default                      u:object_r:hal_authsecret_service:s0
+android.hardware.automotive.vehicle.IVehicle/default                 u:object_r:hal_vehicle_service:s0
 android.hardware.automotive.audiocontrol.IAudioControl/default       u:object_r:hal_audiocontrol_service:s0
 android.hardware.biometrics.face.IFace/default                       u:object_r:hal_face_service:s0
 android.hardware.biometrics.fingerprint.IFingerprint/default         u:object_r:hal_fingerprint_service:s0
@@ -112,7 +113,7 @@ carrier_config                            u:object_r:radio_service:s0
 clipboard                                 u:object_r:clipboard_service:s0
 com.android.net.IProxyService             u:object_r:IProxyService_service:s0
 companiondevice                           u:object_r:companion_device_service:s0
-communal_manager                          u:object_r:communal_manager_service:s0
+communal                                  u:object_r:communal_service:s0
 platform_compat                           u:object_r:platform_compat_service:s0
 platform_compat_native                    u:object_r:platform_compat_service:s0
 connectivity                              u:object_r:connectivity_service:s0
@@ -275,6 +276,7 @@ search                                    u:object_r:search_service:s0
 search_ui                                 u:object_r:search_ui_service:s0
 secure_element                            u:object_r:secure_element_service:s0
 sec_key_att_app_id_provider               u:object_r:sec_key_att_app_id_provider_service:s0
+selection_toolbar                         u:object_r:selection_toolbar_service:s0
 sensorservice                             u:object_r:sensorservice_service:s0
 sensor_privacy                            u:object_r:sensor_privacy_service:s0
 serial                                    u:object_r:serial_service:s0

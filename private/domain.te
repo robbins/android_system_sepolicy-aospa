@@ -315,9 +315,10 @@ neverallow {
 
 neverallow {
   domain
-  # art processes
+  # art-related processes
   -odrefresh
   -odsign
+  -composd
   # others
   -apexd
   -init
@@ -580,7 +581,24 @@ neverallow {
   userdebug_or_eng(`-crosvm')
 } shell_data_file:file open;
 
+# respect system_app sandboxes
+neverallow {
+  domain
+  -appdomain
+  -system_server #populate com.android.providers.settings/databases/settings.db.
+  -installd # creation of app sandbox
+  -iorap_inode2filename
+  -traced_probes # resolve inodes for i/o tracing.
+                 # only needs open and read, the rest is neverallow in
+                 # traced_probes.te.
+} system_app_data_file:dir_file_class_set { create unlink open };
+neverallow {
+  isolated_app
+  ephemeral_app
+  priv_app
+  supplemental_process
+  untrusted_app_all
+} system_app_data_file:dir_file_class_set { create unlink open };
 
 ###Mediaserverwrapper 64 Bit Property  addition
 get_prop(domain, vendor_medsrv_set_64b)
-
