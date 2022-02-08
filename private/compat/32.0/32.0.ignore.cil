@@ -53,6 +53,8 @@
     tare_service
     tv_iapp_service
     untrusted_app_30
+    vendor_qcc_authmgr_app
+    vendor_qcc_netstat_app
     vendor_uuid_mapping_config_file
     vendor_vm_data_file
     vendor_vm_file
