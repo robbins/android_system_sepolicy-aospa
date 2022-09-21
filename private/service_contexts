@@ -1,5 +1,6 @@
 android.hardware.audio.core.IConfig/default                          u:object_r:hal_audio_service:s0
 android.hardware.audio.core.IModule/default                          u:object_r:hal_audio_service:s0
+android.hardware.audio.effect.IFactory/default                       u:object_r:hal_audio_service:s0
 android.hardware.authsecret.IAuthSecret/default                      u:object_r:hal_authsecret_service:s0
 android.hardware.automotive.evs.IEvsEnumerator/hw/0                  u:object_r:hal_evs_service:s0
 android.hardware.boot.IBootControl/default                           u:object_r:hal_bootctl_service:s0
@@ -177,7 +178,6 @@ econtroller                               u:object_r:radio_service:s0
 emergency_affordance                      u:object_r:emergency_affordance_service:s0
 euicc_card_controller                     u:object_r:radio_service:s0
 external_vibrator_service                 u:object_r:external_vibrator_service:s0
-lowpan                                    u:object_r:lowpan_service:s0
 ethernet                                  u:object_r:ethernet_service:s0
 face                                      u:object_r:face_service:s0
 file_integrity                            u:object_r:file_integrity_service:s0
