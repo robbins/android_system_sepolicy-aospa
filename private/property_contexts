@@ -162,6 +162,8 @@ ctl.restart$            u:object_r:ctl_restart_prop:s0
 ctl.interface_start$    u:object_r:ctl_interface_start_prop:s0
 ctl.interface_stop$     u:object_r:ctl_interface_stop_prop:s0
 ctl.interface_restart$  u:object_r:ctl_interface_restart_prop:s0
+ctl.apex_load$          u:object_r:ctl_apex_load_prop:s0
+ctl.apex_unload$        u:object_r:ctl_apex_load_prop:s0
 
  # Restrict access to starting/stopping adbd
 ctl.start$adbd             u:object_r:ctl_adbd_prop:s0
@@ -259,6 +261,7 @@ persist.device_config.swcodec_native.               u:object_r:device_config_swc
 persist.device_config.vendor_system_native.         u:object_r:device_config_vendor_system_native_prop:s0
 persist.device_config.virtualization_framework_native. u:object_r:device_config_virtualization_framework_native_prop:s0
 persist.device_config.window_manager_native_boot.   u:object_r:device_config_window_manager_native_boot_prop:s0
+persist.device_config.memory_safety_native.         u:object_r:device_config_memory_safety_native_prop:s0
 
 # F2FS smart idle maint prop
 persist.device_config.storage_native_boot.smart_idle_maint_enabled u:object_r:smart_idle_maint_enabled_prop:s0 exact bool
@@ -273,8 +276,10 @@ persist.mm_events.enabled                           u:object_r:mm_events_config_
 persist.device_config.global_settings.sys_traced u:object_r:device_config_sys_traced_prop:s0
 
 apexd.                  u:object_r:apexd_prop:s0
+apexd.config.           u:object_r:apexd_config_prop:s0
 apexd.config.dm_delete.timeout           u:object_r:apexd_config_prop:s0 exact uint
 apexd.config.dm_create.timeout           u:object_r:apexd_config_prop:s0 exact uint
+apexd.config.loop_wait.attempts          u:object_r:apexd_config_prop:s0 exact uint
 persist.apexd.          u:object_r:apexd_prop:s0
 persist.vendor.apex.    u:object_r:apexd_select_prop:s0
 ro.boot.vendor.apex.    u:object_r:apexd_select_prop:s0
@@ -725,13 +730,18 @@ init.svc.surfaceflinger u:object_r:init_service_status_prop:s0 exact string
 init.svc.tombstoned     u:object_r:init_service_status_prop:s0 exact string
 init.svc.zygote         u:object_r:init_service_status_prop:s0 exact string
 
+# apexd reads this property to check if init has done with ctl.apex_* messages
+# This should be the form of init.apex.<apex_name>.
+init.apex. u:object_r:init_apex_status_private_prop:s0 prefix enum loaded unloaded
+
 libc.debug.malloc.options u:object_r:libc_debug_prop:s0 exact string
 libc.debug.malloc.program u:object_r:libc_debug_prop:s0 exact string
 libc.debug.hooks.enable   u:object_r:libc_debug_prop:s0 exact string
 
 # GWP-ASan props. Separate from other libc.debug.* props, because we want users
 # to be able to set them from `adb shell` even on release devices.
-libc.debug.gwp_asan.  u:object_r:gwp_asan_prop:s0 prefix string
+libc.debug.gwp_asan.          u:object_r:gwp_asan_prop:s0 prefix string
+persist.libc.debug.gwp_asan.  u:object_r:gwp_asan_prop:s0 prefix string
 
 # shell-only props for ARM memory tagging (MTE).
 arm64.memtag. u:object_r:arm64_memtag_prop:s0 prefix string
@@ -742,6 +752,7 @@ net.redirect_socket_calls.hooked u:object_r:socket_hook_prop:s0 exact bool
 
 persist.sys.locale       u:object_r:exported_system_prop:s0 exact string
 persist.sys.timezone     u:object_r:exported_system_prop:s0 exact string
+persist.sys.mte.permissive u:object_r:permissive_mte_prop:s0 exact string
 persist.sys.test_harness u:object_r:test_harness_prop:s0 exact bool
 
 ro.arch u:object_r:build_prop:s0 exact string
@@ -810,7 +821,8 @@ ro.build.version.security_patch           u:object_r:build_prop:s0 exact string
 
 ro.actionable_compatible_property.enabled u:object_r:build_prop:s0 exact bool
 
-ro.debuggable u:object_r:build_prop:s0 exact bool
+ro.debuggable       u:object_r:build_prop:s0 exact bool
+ro.force.debuggable u:object_r:build_prop:s0 exact bool
 
 ro.treble.enabled u:object_r:build_prop:s0 exact bool
 
@@ -1209,6 +1221,9 @@ cache_key.telephony.                     u:object_r:binder_cache_telephony_serve
 framework_watchdog.fatal_count                u:object_r:framework_watchdog_config_prop:s0 exact int
 framework_watchdog.fatal_window.second        u:object_r:framework_watchdog_config_prop:s0 exact int
 
+# Framework configuration properties.
+framework.pause_bg_animations.enabled         u:object_r:framework_status_prop:s0 exact bool
+
 gsm.operator.iso-country       u:object_r:telephony_status_prop:s0 exact string
 gsm.sim.operator.iso-country   u:object_r:telephony_status_prop:s0 exact string
 gsm.sim.operator.numeric       u:object_r:telephony_status_prop:s0 exact string
@@ -1343,3 +1358,37 @@ ro.mediaserver.64b.enable u:object_r:vendor_medsrv_set_64b:s0 exact bool
 
 # virtualization service properties
 virtualizationservice.state.last_cid u:object_r:virtualizationservice_prop:s0 exact uint
+
+# properties for the virtual Face HAL
+persist.vendor.face.virtual.type u:object_r:virtual_face_hal_prop:s0 exact string
+persist.vendor.face.virtual.strength u:object_r:virtual_face_hal_prop:s0 exact string
+persist.vendor.face.virtual.enrollments u:object_r:virtual_face_hal_prop:s0 exact string
+persist.vendor.face.virtual.features u:object_r:virtual_face_hal_prop:s0 exact string
+vendor.face.virtual.enrollment_hit u:object_r:virtual_face_hal_prop:s0 exact int
+vendor.face.virtual.operation_start_enroll_latency u:object_r:virtual_face_hal_prop:s0 exact int
+vendor.face.virtual.next_enrollment u:object_r:virtual_face_hal_prop:s0 exact string
+vendor.face.virtual.authenticator_id u:object_r:virtual_face_hal_prop:s0 exact int
+vendor.face.virtual.challenge u:object_r:virtual_face_hal_prop:s0 exact int
+vendor.face.virtual.lockout u:object_r:virtual_face_hal_prop:s0 exact bool
+vendor.face.virtual.operation_authenticate_fails u:object_r:virtual_face_hal_prop:s0 exact bool
+vendor.face.virtual.operation_detect_interaction_fails u:object_r:virtual_face_hal_prop:s0 exact bool
+vendor.face.virtual.operation_enroll_fails u:object_r:virtual_face_hal_prop:s0 exact bool
+vendor.face.virtual.operation_authenticate_latency u:object_r:virtual_face_hal_prop:s0 exact int
+vendor.face.virtual.operation_detect_interaction_latency u:object_r:virtual_face_hal_prop:s0 exact int
+vendor.face.virtual.operation_authenticate_duration u:object_r:virtual_face_hal_prop:s0 exact int
+
+# properties for the virtual Fingerprint HAL
+persist.vendor.fingerprint.virtual.type u:object_r:virtual_fingerprint_hal_prop:s0 exact string
+persist.vendor.fingerprint.virtual.enrollments u:object_r:virtual_fingerprint_hal_prop:s0 exact string
+vendor.fingerprint.virtual.enrollment_hit u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+vendor.fingerprint.virtual.next_enrollment u:object_r:virtual_fingerprint_hal_prop:s0 exact string
+vendor.fingerprint.virtual.authenticator_id u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+vendor.fingerprint.virtual.challenge u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+vendor.fingerprint.virtual.lockout u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
+vendor.fingerprint.virtual.operation_authenticate_fails u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
+vendor.fingerprint.virtual.operation_detect_interaction_fails u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
+vendor.fingerprint.virtual.operation_enroll_fails u:object_r:virtual_fingerprint_hal_prop:s0 exact bool
+vendor.fingerprint.virtual.operation_authenticate_latency u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+vendor.fingerprint.virtual.operation_detect_interaction_latency u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+vendor.fingerprint.virtual.operation_enroll_latency u:object_r:virtual_fingerprint_hal_prop:s0 exact int
+vendor.fingerprint.virtual.operation_authenticate_duration u:object_r:virtual_fingerprint_hal_prop:s0 exact int
