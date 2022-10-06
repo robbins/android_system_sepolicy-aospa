@@ -43,6 +43,7 @@ ro.khungtask.           u:object_r:llkd_prop:s0
 log.                    u:object_r:log_prop:s0
 log.tag                 u:object_r:log_tag_prop:s0
 log.tag.WifiHAL         u:object_r:wifi_log_prop:s0
+ro.log.file_logger.path    u:object_r:log_file_logger_prop:s0 exact string
 security.perf_harden    u:object_r:shell_prop:s0
 persist.simpleperf.profile_app_uid              u:object_r:shell_prop:s0
 persist.simpleperf.profile_app_expiration_time  u:object_r:shell_prop:s0
@@ -559,6 +560,8 @@ bluetooth.core.le.connection_scan_window_2m_fast     u:object_r:bluetooth_config
 bluetooth.core.le.connection_scan_window_coded_fast  u:object_r:bluetooth_config_prop:s0 exact uint
 bluetooth.core.le.connection_scan_interval_slow      u:object_r:bluetooth_config_prop:s0 exact uint
 bluetooth.core.le.connection_scan_window_slow        u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.inquiry_scan_interval              u:object_r:bluetooth_config_prop:s0 exact uint
+bluetooth.core.le.inquiry_scan_window                u:object_r:bluetooth_config_prop:s0 exact uint
 
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
 
@@ -1146,6 +1149,9 @@ ro.hwui.use_vulkan u:object_r:exported_default_prop:s0 exact bool
 ro.kernel.qemu             u:object_r:exported_default_prop:s0 exact bool
 ro.kernel.qemu.            u:object_r:exported_default_prop:s0
 ro.kernel.android.bootanim u:object_r:exported_default_prop:s0 exact int
+
+# This property is used by init to store the original value or /proc/sys/vm/watermark_scale_factor
+ro.kernel.watermark_scale_factor          u:object_r:init_storage_prop:s0 exact int
 
 ro.oem.key1 u:object_r:exported_default_prop:s0 exact string
 

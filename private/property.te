@@ -18,6 +18,7 @@ system_internal_prop(fastbootd_protocol_prop)
 system_internal_prop(gsid_prop)
 system_internal_prop(init_perf_lsm_hooks_prop)
 system_internal_prop(init_service_status_private_prop)
+system_internal_prop(init_storage_prop)
 system_internal_prop(init_svc_debug_prop)
 system_internal_prop(keystore_crash_prop)
 system_internal_prop(keystore_listen_prop)
@@ -51,6 +52,7 @@ system_internal_prop(ctl_apex_load_prop)
 
 # Properties which can't be written outside system
 system_restricted_prop(device_config_virtualization_framework_native_prop)
+system_restricted_prop(log_file_logger_prop)
 
 ###
 ### Neverallow rules
@@ -147,6 +149,12 @@ dontaudit domain {
   ctl_mdnsd_prop
   ctl_rildaemon_prop
 }:property_service set;
+
+neverallow {
+  domain
+  -init
+  -extra_free_kbytes
+} init_storage_prop:property_service set;
 
 neverallow {
   domain
@@ -666,3 +674,7 @@ neverallow {
   -profcollectd
 } profcollectd_node_id_prop:file r_file_perms;
 
+neverallow {
+  domain
+  -init
+} log_file_logger_prop:property_service set;
