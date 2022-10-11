@@ -1976,6 +1976,7 @@
 (typeattributeset proc_32_0 (proc_bpf))
 (typeattributeset proc_32_0 (proc_cpu_alignment))
 (typeattributeset proc_32_0 (proc_watermark_scale_factor))
+(typeattributeset proc_32_0 (proc proc_bpf proc_cpu_alignment proc_watermark_scale_factor))
 (typeattributeset proc_abi_32_0 (proc_abi))
 (typeattributeset proc_asound_32_0 (proc_asound))
 (typeattributeset proc_bluetooth_writable_32_0 (proc_bluetooth_writable))
