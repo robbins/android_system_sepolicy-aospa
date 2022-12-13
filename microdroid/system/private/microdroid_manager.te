@@ -39,6 +39,9 @@ domain_auto_trans(microdroid_manager, compos_exec, compos)
 domain_auto_trans(microdroid_manager, apkdmverity_exec, apkdmverity)
 domain_auto_trans(microdroid_manager, zipfuse_exec, zipfuse)
 
+# Allow microdroid_manager to start encryptedstore binary
+domain_auto_trans(microdroid_manager, encryptedstore_exec, encryptedstore)
+
 # Allow microdroid_manager to run kexec to load crashkernel
 domain_auto_trans(microdroid_manager, kexec_exec, kexec)
 
@@ -50,12 +53,6 @@ allow microdroid_manager self:vsock_socket { create_socket_perms_no_ioctl };
 
 # microdroid_manager is using bootstrap bionic
 use_bootstrap_libs(microdroid_manager)
-
-# microdroid_manager hosts binder services.
-binder_use(microdroid_manager)
-
-# microdroid_manager can add virtual_machine_payload_service
-add_service(microdroid_manager, vm_payload_binder_service)
 
 # microdroid_manager create /apex/vm-payload-metadata for apexd
 # TODO(b/199371341) create a new label for the file so that only microdroid_manager can create it.
@@ -111,6 +108,9 @@ allow microdroid_manager serial_device:chr_file w_file_perms;
 # Allow microdroid_manager to handle extra_apks
 allow microdroid_manager extra_apk_file:dir create_dir_perms;
 
+# Allow microdroid_manager to write kmsg_debug (stdio_to_kmsg).
+allow microdroid_manager kmsg_debug_device:chr_file w_file_perms;
+
 # Domains other than microdroid can't write extra_apks
 neverallow { domain -microdroid_manager -init -vendor_init } extra_apk_file:file no_w_file_perms;
 neverallow { domain -microdroid_manager -init -vendor_init } extra_apk_file:dir no_w_dir_perms;
@@ -123,6 +123,7 @@ neverallow microdroid_manager {
   -crash_dump
   -microdroid_payload
   -apkdmverity
+  -encryptedstore
   -zipfuse
   -kexec
 }:process transition;
