@@ -53,7 +53,7 @@
 /dev/fuse		u:object_r:fuse_device:s0
 /dev/hvc0               u:object_r:serial_device:s0
 /dev/hvc1               u:object_r:serial_device:s0
-/dev/hvc2               u:object_r:serial_device:s0
+/dev/hvc2               u:object_r:log_device:s0
 /dev/hw_random		u:object_r:hw_random_device:s0
 /dev/hwbinder		u:object_r:hwbinder_device:s0
 /dev/loop-control	u:object_r:loop_control_device:s0
@@ -68,14 +68,12 @@
 /dev/rtc[0-9]      u:object_r:rtc_device:s0
 /dev/socket(/.*)?	u:object_r:socket_device:s0
 /dev/socket/adbd	u:object_r:adbd_socket:s0
-/dev/socket/logd	u:object_r:logd_socket:s0
-/dev/socket/logdr	u:object_r:logdr_socket:s0
-/dev/socket/logdw	u:object_r:logdw_socket:s0
 /dev/socket/property_service	u:object_r:property_socket:s0
 /dev/socket/statsdw	u:object_r:statsdw_socket:s0
 /dev/socket/tombstoned_crash u:object_r:tombstoned_crash_socket:s0
 /dev/socket/tombstoned_java_trace u:object_r:tombstoned_java_trace_socket:s0
 /dev/socket/tombstoned_intercept u:object_r:tombstoned_intercept_socket:s0
+/dev/socket/vm_payload_service u:object_r:vm_payload_service_socket:s0
 /dev/sys/block/by-name/userdata(/.*)?	u:object_r:userdata_sysdev:s0
 /dev/sys/fs/by-name/userdata(/.*)?	u:object_r:userdata_sysdev:s0
 /dev/tty		u:object_r:owntty_device:s0
@@ -108,13 +106,12 @@
 /system/bin/linkerconfig u:object_r:linkerconfig_exec:s0
 /system/bin/bootstrap/linker(64)? u:object_r:system_linker_exec:s0
 /system/bin/bootstrap/linkerconfig u:object_r:linkerconfig_exec:s0
-/system/bin/diced.microdroid		u:object_r:diced_exec:s0
 /system/bin/servicemanager.microdroid	u:object_r:servicemanager_exec:s0
 /system/bin/init		u:object_r:init_exec:s0
 /system/bin/logcat	--	u:object_r:logcat_exec:s0
 /system/bin/logd        u:object_r:logd_exec:s0
 /system/bin/sh		--	u:object_r:shell_exec:s0
-/system/bin/tombstoned u:object_r:tombstoned_exec:s0
+/system/bin/tombstoned.microdroid u:object_r:tombstoned_exec:s0
 /system/bin/toolbox	--	u:object_r:toolbox_exec:s0
 /system/bin/toybox	--	u:object_r:toolbox_exec:s0
 /system/bin/zipfuse              u:object_r:zipfuse_exec:s0

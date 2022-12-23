@@ -117,6 +117,13 @@ allow domain linkerconfig_file:file r_file_perms;
 # Allow all processes to check for the existence of the boringssl_self_test_marker files.
 allow domain boringssl_self_test_marker:dir search;
 
+# Allow all processes to read the file_logger property that liblog uses to check if file_logger
+# should be used.
+get_prop(domain, log_file_logger_prop)
+
+# Allow all processes to connect to PRNG seeder daemon.
+unix_socket_connect(domain, prng_seeder, prng_seeder)
+
 # No domains other than a select few can access the misc_block_device. This
 # block device is reserved for OTA use.
 # Do not assert this rule on userdebug/eng builds, due to some devices using
@@ -174,6 +181,7 @@ neverallow { domain -init -system_server } dropbox_data_file:file ~{ getattr rea
 neverallow {
   domain
   -appdomain
+  -artd # compile secondary dex files
   -installd # creation of sandbox
 } { privapp_data_file app_data_file }:dir_file_class_set { create unlink };
 
@@ -184,6 +192,7 @@ neverallow {
   -adbd
   -appdomain
   -app_zygote
+  -artd # compile secondary dex files
   -dexoptanalyzer
   -installd
   -profman
@@ -199,6 +208,7 @@ neverallow {
 neverallow {
   domain
   -appdomain
+  -artd # compile secondary dex files
   -installd
   -rs # spawned by appdomain, so carryover the exception above
 } { privapp_data_file app_data_file }:dir ~r_dir_perms;
@@ -207,6 +217,7 @@ neverallow {
   domain
   -appdomain
   -app_zygote
+  -artd # compile secondary dex files
   -installd
   -rs # spawned by appdomain, so carryover the exception above
 } { privapp_data_file app_data_file }:file_class_set open;
@@ -214,11 +225,13 @@ neverallow {
 neverallow {
   domain
   -appdomain
+  -artd # compile secondary dex files
   -installd # creation of sandbox
 } { privapp_data_file app_data_file }:dir_file_class_set { create unlink };
 
 neverallow {
   domain
+  -artd # compile secondary dex files
   -installd
 } { privapp_data_file app_data_file }:dir_file_class_set { relabelfrom relabelto };
 
@@ -494,6 +507,7 @@ full_treble_only(`
     -logd # Logging by writing to logd Unix domain socket is public API
     -netd # netdomain needs this
     -mdnsd # netdomain needs this
+    -prng_seeder # Any process using libcrypto needs this
     userdebug_or_eng(`-su') # communications with su are permitted only on userdebug or eng builds
     -init
     -tombstoned # linker to tombstoned
@@ -598,10 +612,14 @@ neverallow { domain -ueventd -vendor_init } sysfs_devices_cs_etm:file no_w_file_
 # untrustworthy, and non-allowed domains should not be trusting any content in
 # those directories. We allow shell files to be passed around by file
 # descriptor, but not directly opened.
+# artd doesn't need to access /data/local/tmp, but it needs to access
+# /data/{user,user_de}/<user-id>/com.android.shell/... for compiling secondary
+# dex files.
 neverallow {
   domain
   -adbd
   -appdomain
+  -artd
   -dumpstate
   -installd
   userdebug_or_eng(`-uncrypt')
@@ -613,6 +631,7 @@ neverallow {
 neverallow {
   domain
   -appdomain
+  -artd # compile secondary dex files
   -system_server #populate com.android.providers.settings/databases/settings.db.
   -installd # creation of app sandbox
   -traced_probes # resolve inodes for i/o tracing.
@@ -629,3 +648,5 @@ neverallow {
 
 ###Mediaserverwrapper 64 Bit Property  addition
 get_prop(domain, vendor_medsrv_set_64b)
+
+neverallow { domain -init } mtectrl:process { dyntransition transition };

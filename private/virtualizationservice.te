@@ -22,12 +22,18 @@ add_service(virtualizationservice, virtualization_service)
 # When virtualizationservice execs a file with the crosvm_exec label, run it in the crosvm domain.
 domain_auto_trans(virtualizationservice, crosvm_exec, crosvm)
 
+# Let virtualizationservice (and specifically its children) mlock VM memory and page tables.
+allow virtualizationservice self:capability sys_resource;
+
 # Let virtualizationservice kill crosvm.
 allow virtualizationservice crosvm:process sigkill;
 
 # Let virtualizationservice access its data directory.
 allow virtualizationservice virtualizationservice_data_file:file create_file_perms;
 allow virtualizationservice virtualizationservice_data_file:dir create_dir_perms;
+
+# Let virtualizationservice manage crosvm control sockets.
+allow virtualizationservice virtualizationservice_data_file:sock_file create_file_perms;
 
 # Allow to use fd (e.g. /dev/pts/0) inherited from adbd so that we can redirect output from
 # crosvm to the console
@@ -41,6 +47,7 @@ allow virtualizationservice apk_data_file:file { getattr read };
 allow virtualizationservice {
   app_data_file
   apex_compos_data_file
+  privapp_data_file
 }:file { getattr read write };
 
 # shell_data_file is used for automated tests and manual debugging.
@@ -82,3 +89,9 @@ neverallow {
   -init
   -virtualizationservice
 } virtualizationservice_prop:property_service set;
+
+neverallow {
+  domain
+  -init
+  -virtualizationservice
+} virtualizationservice_data_file:file { open create };
