@@ -640,6 +640,10 @@ external_storage.sdcardfs.enabled u:object_r:storage_config_prop:s0 exact bool
 external_storage.cross_user.enabled u:object_r:storage_config_prop:s0 exact bool
 ro.fuse.bpf.enabled u:object_r:storage_config_prop:s0 exact bool
 
+# hypervisor.*: configured by the vendor to advertise capabilities of their
+# hypervisor to virtualizationservice.
+hypervisor.memory_reclaim.supported u:object_r:hypervisor_restricted_prop:s0 exact bool
+
 ro.config.per_app_memcg         u:object_r:lmkd_config_prop:s0 exact bool
 ro.lmk.critical                 u:object_r:lmkd_config_prop:s0 exact int
 ro.lmk.critical_upgrade         u:object_r:lmkd_config_prop:s0 exact bool
@@ -1469,3 +1473,6 @@ vendor.fingerprint.virtual.operation_authenticate_duration u:object_r:virtual_fi
 # properties for tuner
 ro.tuner.lazyhal    u:object_r:tuner_config_prop:s0 exact bool
 tuner.server.enable u:object_r:tuner_server_ctl_prop:s0 exact bool
+
+# Adaptive haptics settings property
+vibrator.adaptive_haptics.enabled u:object_r:adaptive_haptics_prop:s0 exact string
