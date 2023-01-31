@@ -29,11 +29,20 @@ tmpfs_domain(artd)
 # Allow testing userfaultfd support.
 userfaultfd_use(artd)
 
-# Read access to primary dex'es on writable partitions (e.g., /data/app/...).
+# Read access to primary dex'es on writable partitions
+# ({/data,/mnt/expand/<volume-uuid>}/app/...).
+allow artd mnt_expand_file:dir { getattr search };
 r_dir_file(artd, apk_data_file)
 
-# Read access to /vendor/app.
+# Read access to vendor APKs ({/vendor,/odm}/{app,priv-app}/...).
 r_dir_file(artd, vendor_app_file)
+
+# Read access to vendor overlay APKs ({/vendor,/odm,/oem}/overlay/...).
+allow artd oemfs:dir { getattr search };
+r_dir_file(artd, vendor_overlay_file)
+
+# Read access to vendor shared libraries ({/vendor,/odm}/framework/...).
+r_dir_file(artd, vendor_framework_file)
 
 # Read/write access to all compilation artifacts generated on device for apps'
 # primary dex'es. (/data/dalvik-cache/..., /data/app/.../oat/..., etc.)
@@ -72,6 +81,18 @@ allow artd user_profile_data_file:file create_file_perms;
 # ({/data,/mnt/expand/<volume-uuid>}/{user,user_de}/<user-id>/<package-name>/...).
 allow artd app_data_file_type:dir { create_dir_perms relabelfrom relabelto };
 allow artd app_data_file_type:file { create_file_perms relabelfrom relabelto };
+
+# Allow symlinks for secondary dex files. This has be to restricted because
+# symlinks can cause various security issues. We allow "privapp_data_file" just
+# for GMS because so far we only see GMS using symlinks.
+allow artd privapp_data_file:lnk_file { getattr read };
+
+# Read access to SELinux context files, for restorecon.
+allow artd file_contexts_file:file r_file_perms;
+allow artd seapp_contexts_file:file r_file_perms;
+
+# Check validity of SELinux context, for restorecon.
+selinux_check_context(artd)
 
 # Never allow running other binaries without a domain transition.
 # The only exception is art_exec. It is allowed to use the artd domain because
