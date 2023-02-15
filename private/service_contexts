@@ -61,6 +61,9 @@ android.hardware.radio.network.IRadioNetwork/slot3                   u:object_r:
 android.hardware.radio.sim.IRadioSim/slot1                           u:object_r:hal_radio_service:s0
 android.hardware.radio.sim.IRadioSim/slot2                           u:object_r:hal_radio_service:s0
 android.hardware.radio.sim.IRadioSim/slot3                           u:object_r:hal_radio_service:s0
+android.hardware.radio.sim.ISap/slot1                                u:object_r:hal_radio_service:s0
+android.hardware.radio.sim.ISap/slot2                                u:object_r:hal_radio_service:s0
+android.hardware.radio.sim.ISap/slot3                                u:object_r:hal_radio_service:s0
 android.hardware.radio.voice.IRadioVoice/slot1                       u:object_r:hal_radio_service:s0
 android.hardware.radio.voice.IRadioVoice/slot2                       u:object_r:hal_radio_service:s0
 android.hardware.radio.voice.IRadioVoice/slot3                       u:object_r:hal_radio_service:s0
@@ -88,6 +91,12 @@ android.hardware.wifi.IWifi/default                                  u:object_r:
 android.hardware.wifi.hostapd.IHostapd/default                       u:object_r:hal_wifi_hostapd_service:s0
 android.hardware.wifi.supplicant.ISupplicant/default                 u:object_r:hal_wifi_supplicant_service:s0
 android.se.omapi.ISecureElementService/default                       u:object_r:secure_element_service:s0
+android.hardware.secure_element.ISecureElement/eSE1                  u:object_r:hal_secure_element_service:s0
+android.hardware.secure_element.ISecureElement/eSE2                  u:object_r:hal_secure_element_service:s0
+android.hardware.secure_element.ISecureElement/eSE3                  u:object_r:hal_secure_element_service:s0
+android.hardware.secure_element.ISecureElement/SIM1                  u:object_r:hal_secure_element_service:s0
+android.hardware.secure_element.ISecureElement/SIM2                  u:object_r:hal_secure_element_service:s0
+android.hardware.secure_element.ISecureElement/SIM3                  u:object_r:hal_secure_element_service:s0
 android.system.keystore2.IKeystoreService/default                    u:object_r:keystore_service:s0
 android.system.net.netd.INetd/default                                u:object_r:system_net_netd_service:s0
 android.system.suspend.ISystemSuspend/default                        u:object_r:hal_system_suspend_service:s0
@@ -313,6 +322,7 @@ radio.sms                                 u:object_r:radio_service:s0
 rcs                                       u:object_r:radio_service:s0
 reboot_readiness                          u:object_r:reboot_readiness_service:s0
 recovery                                  u:object_r:recovery_service:s0
+remote_provisioning                       u:object_r:remote_provisioning_service:s0
 resolver                                  u:object_r:resolver_service:s0
 resources                                 u:object_r:resources_manager_service:s0
 restrictions                              u:object_r:restrictions_service:s0
@@ -401,6 +411,7 @@ vpn_management                            u:object_r:vpn_management_service:s0
 vrmanager                                 u:object_r:vr_manager_service:s0
 wallpaper                                 u:object_r:wallpaper_service:s0
 wallpaper_effects_generation              u:object_r:wallpaper_effects_generation_service:s0
+wearable_sensing                          u:object_r:wearable_sensing_service:s0
 webviewupdate                             u:object_r:webviewupdate_service:s0
 wifip2p                                   u:object_r:wifip2p_service:s0
 wifiscanner                               u:object_r:wifiscanner_service:s0

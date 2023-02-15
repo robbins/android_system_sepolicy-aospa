@@ -91,6 +91,7 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors-service\.example  u:object_r:hal_sensors_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.sensors-service(\.multihal)?  u:object_r:hal_sensors_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.secure_element@1\.0-service u:object_r:hal_secure_element_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.secure_element-service.example u:object_r:hal_secure_element_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.security\.dice-service\.non-secure-software   u:object_r:hal_dice_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.security\.keymint-service   u:object_r:hal_keymint_default_exec:s0
 /(vendor|system/vendor)/bin/hw/rild                                           u:object_r:rild_exec:s0
@@ -113,6 +114,8 @@
 /(vendor|system/vendor)/bin/hw/android\.hardware\.vr@1\.0-service             u:object_r:hal_vr_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.wifi@1\.0-service           u:object_r:hal_wifi_default_exec:s0
 /(vendor|system/vendor)/bin/hw/android\.hardware\.wifi@1\.0-service-lazy      u:object_r:hal_wifi_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.wifi-service                u:object_r:hal_wifi_default_exec:s0
+/(vendor|system/vendor)/bin/hw/android\.hardware\.wifi-service-lazy           u:object_r:hal_wifi_default_exec:s0
 /(vendor|system/vendor)/bin/hw/hostapd                                        u:object_r:hal_wifi_hostapd_default_exec:s0
 /(vendor|system/vendor)/bin/hw/wpa_supplicant                                 u:object_r:hal_wifi_supplicant_default_exec:s0
 /(vendor|system/vendor)/bin/install-recovery\.sh                              u:object_r:vendor_install_recovery_exec:s0
