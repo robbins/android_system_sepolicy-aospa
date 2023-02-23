@@ -573,6 +573,7 @@ bluetooth.core.le.connection_scan_window_slow        u:object_r:bluetooth_config
 bluetooth.core.le.inquiry_scan_interval              u:object_r:bluetooth_config_prop:s0 exact uint
 bluetooth.core.le.inquiry_scan_window                u:object_r:bluetooth_config_prop:s0 exact uint
 
+bluetooth.core.le.vendor_capabilities.enabled        u:object_r:bluetooth_config_prop:s0 exact bool
 bluetooth.sco.disable_enhanced_connection            u:object_r:bluetooth_config_prop:s0 exact bool
 
 persist.nfc.debug_enabled                      u:object_r:nfc_prop:s0 exact bool
@@ -592,29 +593,32 @@ ro.hdmi.wake_on_hotplug                                            u:object_r:hd
 ro.hdmi.cec.source.send_standby_on_sleep                           u:object_r:hdmi_config_prop:s0 exact enum to_tv broadcast none
 ro.hdmi.cec.source.playback_device_action_on_routing_control       u:object_r:hdmi_config_prop:s0 exact enum none wake_up_only wake_up_and_send_active_source
 
-# This is the namespace of all system properties used by ART Service.
-# As ART Service is in the updatable ART module, we need the prefix to allow us
-# to add new properties.
-pm.dexopt.                                  u:object_r:exported_pm_prop:s0 prefix
+pm.dexopt.bg-dexopt                                     u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.bg-dexopt.concurrency                         u:object_r:exported_pm_prop:s0 exact int
+pm.dexopt.first-boot                                    u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.first-boot.concurrency                        u:object_r:exported_pm_prop:s0 exact int
+pm.dexopt.boot-after-ota                                u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.boot-after-ota.concurrency                    u:object_r:exported_pm_prop:s0 exact int
+pm.dexopt.boot-after-mainline-update                    u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.boot-after-mainline-update.concurrency        u:object_r:exported_pm_prop:s0 exact int
 
-# A set of pm.dexopt properties that we should keep supporting for Treble
-# compatibility. We explicitly list them here to discourage renaming or
-# disregarding them.
-pm.dexopt.ab-ota                            u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.bg-dexopt                         u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.boot                              u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.cmdline                           u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.disable_bg_dexopt                 u:object_r:exported_pm_prop:s0 exact bool
-pm.dexopt.downgrade_after_inactive_days     u:object_r:exported_pm_prop:s0 exact int
-pm.dexopt.first-boot                        u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.inactive                          u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.install                           u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.install-fast                      u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.install-bulk                      u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.install-bulk-secondary            u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.install-bulk-downgraded           u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.install-bulk-secondary-downgraded u:object_r:exported_pm_prop:s0 exact string
-pm.dexopt.shared                            u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.post-boot                                     u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.ab-ota                                        u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.cmdline                                       u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.inactive                                      u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.install                                       u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.install-fast                                  u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.install-bulk                                  u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.install-bulk-secondary                        u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.install-bulk-downgraded                       u:object_r:exported_pm_prop:s0 exact string
+pm.dexopt.install-bulk-secondary-downgraded             u:object_r:exported_pm_prop:s0 exact string
+
+pm.dexopt.shared                                        u:object_r:exported_pm_prop:s0 exact string
+
+pm.dexopt.disable_bg_dexopt                             u:object_r:exported_pm_prop:s0 exact bool
+pm.dexopt.downgrade_after_inactive_days                 u:object_r:exported_pm_prop:s0 exact int
+
+pm.dexopt.                                              u:object_r:future_pm_prop:s0 prefix
 
 ro.apk_verity.mode u:object_r:apk_verity_prop:s0 exact int
 
@@ -1363,6 +1367,12 @@ ro.zygote.disable_gl_preload u:object_r:zygote_config_prop:s0 exact bool
 # Allows a device to run without batch attestation keys
 remote_provisioning.strongbox.rkp_only u:object_r:remote_prov_prop:s0 exact bool
 remote_provisioning.tee.rkp_only u:object_r:remote_prov_prop:s0 exact bool
+
+# Hostname for the remote provisioning server a device should communicate with
+remote_provisioning.hostname u:object_r:remote_prov_prop:s0 exact string
+
+# Indicates the system should use rkpd instead of RemoteProvisioner
+remote_provisioning.enable_rkpd u:object_r:remote_prov_prop:s0 exact bool
 
 # Broadcast boot stages, which keystore listens to
 keystore.boot_level u:object_r:keystore_listen_prop:s0 exact int
