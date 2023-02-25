@@ -222,9 +222,9 @@ allow system_server proc_uid_procstat_set:file { w_file_perms getattr };
 # Write to /proc/sysrq-trigger.
 allow system_server proc_sysrq:file rw_file_perms;
 
-# Delete /data/misc/stats-data/ and /data/misc/stats-service/ directories.
-allow system_server stats_data_file:dir { open read remove_name search write };
-allow system_server stats_data_file:file unlink;
+# Delete /data/misc/stats-service/ directories.
+allow system_server stats_config_data_file:dir { open read remove_name search write };
+allow system_server stats_config_data_file:file unlink;
 
 # Read metric file & upload to statsd
 allow system_server odsign_data_file:dir search;
@@ -421,7 +421,9 @@ allow system_server mediaserver:udp_socket rw_socket_perms;
 allow system_server mediadrmserver:tcp_socket rw_socket_perms;
 allow system_server mediadrmserver:udp_socket rw_socket_perms;
 
-userdebug_or_eng(`perfetto_producer({ system_server })')
+# Write trace data to the Perfetto traced daemon. This requires connecting to
+# its producer socket and obtaining a (per-process) tmpfs fd.
+perfetto_producer(system_server)
 
 # Get file context
 allow system_server file_contexts_file:file r_file_perms;
@@ -760,6 +762,7 @@ set_prop(system_server, device_config_surface_flinger_native_boot_prop)
 set_prop(system_server, device_config_vendor_system_native_prop)
 set_prop(system_server, device_config_vendor_system_native_boot_prop)
 set_prop(system_server, device_config_virtualization_framework_native_prop)
+set_prop(system_server, device_config_memory_safety_native_boot_prop)
 set_prop(system_server, device_config_memory_safety_native_prop)
 set_prop(system_server, device_config_remote_key_provisioning_native_prop)
 set_prop(system_server, smart_idle_maint_enabled_prop)
