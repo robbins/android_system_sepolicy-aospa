@@ -52,8 +52,7 @@ never_profile_heap(`{
   apexd
   app_zygote
   bpfloader
-  diced
-  hal_configstore
+  hal_configstore_server
   init
   kernel
   keystore
