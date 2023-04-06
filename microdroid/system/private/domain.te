@@ -394,11 +394,6 @@ neverallow { domain -init -vendor_init } vendor_default_prop:property_service se
 neverallow { domain -init } build_prop:property_service set;
 neverallow { domain -init -init_debug_policy } debuggable_prop:property_service set;
 
-# Never allow anyone to connect or write to
-# the tombstoned intercept socket.
-neverallow { domain } tombstoned_intercept_socket:sock_file write;
-neverallow { domain } tombstoned_intercept_socket:unix_stream_socket connectto;
-
 # Android does not support System V IPCs.
 #
 # The reason for this is due to the fact that, by design, they lead to global
@@ -544,7 +539,7 @@ neverallow {
   domain
 } ashmem_device:chr_file open;
 
-neverallow { domain -init -vendor_init } debugfs_tracing_printk_formats:file *;
+neverallow { domain -init -vendor_init -traced_probes } debugfs_tracing_printk_formats:file *;
 
 # Linux lockdown "integrity" level is enforced for user builds.
 neverallow { domain userdebug_or_eng(`-domain') } self:lockdown integrity;
