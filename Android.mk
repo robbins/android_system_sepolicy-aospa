@@ -327,7 +327,7 @@ endif # ($(PRODUCT_SEPOLICY_SPLIT),true)
 ifneq ($(with_asan),true)
 ifneq ($(SELINUX_IGNORE_NEVERALLOWS),true)
 LOCAL_REQUIRED_MODULES += \
-    $(addsuffix _compat_test,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
+	$(addsuffix _compat_test,$(PLATFORM_SEPOLICY_COMPAT_VERSIONS)) \
 
 # HACK: sepolicy_test is implemented as genrule
 # genrule modules aren't installable, so LOCAL_REQUIRED_MODULES doesn't work.
