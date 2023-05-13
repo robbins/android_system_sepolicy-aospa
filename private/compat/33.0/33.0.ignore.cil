@@ -26,9 +26,11 @@
     fwk_camera_service
     fwk_sensor_service
     grammatical_inflection_service
+    graphics_config_writable_prop
     hal_bluetooth_service
     hal_bootctl_service
     hal_cas_service
+    hal_ivn_service
     hal_remoteaccess_service
     hal_secure_element_service
     hal_tetheroffload_service
