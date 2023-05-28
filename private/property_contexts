@@ -666,6 +666,7 @@ ro.bt.bdaddr_path u:object_r:exported_bluetooth_prop:s0 exact string
 ro.config.alarm_alert         u:object_r:systemsound_config_prop:s0 exact string
 ro.config.alarm_vol_default   u:object_r:systemsound_config_prop:s0 exact int
 ro.config.alarm_vol_steps     u:object_r:systemsound_config_prop:s0 exact int
+ro.config.assistant_vol_min   u:object_r:systemsound_config_prop:s0 exact int
 ro.config.media_vol_default   u:object_r:systemsound_config_prop:s0 exact int
 ro.config.media_vol_steps     u:object_r:systemsound_config_prop:s0 exact int
 ro.config.notification_sound  u:object_r:systemsound_config_prop:s0 exact string
@@ -1203,7 +1204,6 @@ ro.hardware.camera               u:object_r:exported_default_prop:s0 exact strin
 ro.hardware.consumerir           u:object_r:exported_default_prop:s0 exact string
 ro.hardware.context_hub          u:object_r:exported_default_prop:s0 exact string
 ro.hardware.egl                  u:object_r:exported_default_prop:s0 exact string
-ro.hardware.egl_legacy           u:object_r:graphics_config_prop:s0 exact string
 ro.hardware.fingerprint          u:object_r:exported_default_prop:s0 exact string
 ro.hardware.flp                  u:object_r:exported_default_prop:s0 exact string
 ro.hardware.gatekeeper           u:object_r:exported_default_prop:s0 exact string
