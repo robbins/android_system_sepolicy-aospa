@@ -274,6 +274,7 @@ persist.device_config.virtualization_framework_native. u:object_r:device_config_
 persist.device_config.window_manager_native_boot.   u:object_r:device_config_window_manager_native_boot_prop:s0
 persist.device_config.memory_safety_native_boot.    u:object_r:device_config_memory_safety_native_boot_prop:s0
 persist.device_config.memory_safety_native.         u:object_r:device_config_memory_safety_native_prop:s0
+persist.device_config.tethering_u_or_later_native.  u:object_r:device_config_tethering_u_or_later_native_prop:s0
 
 # F2FS smart idle maint prop
 persist.device_config.storage_native_boot.smart_idle_maint_enabled u:object_r:smart_idle_maint_enabled_prop:s0 exact bool
@@ -1452,8 +1453,8 @@ partition.product.verified.root_digest    u:object_r:verity_status_prop:s0 exact
 partition.vendor.verified.root_digest     u:object_r:verity_status_prop:s0 exact string
 partition.odm.verified.root_digest        u:object_r:verity_status_prop:s0 exact string
 
-ro.setupwizard.esim_cid_ignore u:object_r:setupwizard_esim_prop:s0 exact string
 ro.setupwizard.enterprise_mode u:object_r:setupwizard_prop:s0 exact bool
+ro.setupwizard.esim_cid_ignore u:object_r:setupwizard_prop:s0 exact string
 ro.setupwizard.rotation_locked u:object_r:setupwizard_prop:s0 exact bool
 ro.setupwizard.wifi_on_exit    u:object_r:setupwizard_prop:s0 exact bool
 
